@@ -17,12 +17,12 @@ class RrtProces:
     def randPoint(self):
         return (random.randint(0, self.scrWidth), random.randint(0, self.scrHeight))
 
-    def drawLine(self,cord1, cord2,color):
-        pg.draw.line(self.screnn,color,cord1,cord2,sbt.ticknes)
     
     def distance(self,cord1,cord2):
         return ((cord1[0]-cord2[0])**2+(cord1[1]-cord2[1])**2)**0.5
 
+    def drawLine(self,cord1, cord2,color):
+        pg.draw.line(self.screnn,color,cord1,cord2,sbt.ticknes)
 
     def drawCircle(self,cord,color,rad=sbt.circleRad):
         pg.draw.circle(self.screnn,color,cord,rad)
@@ -61,13 +61,6 @@ class RrtProces:
         self.drawCircle(cord,sbt.Colors.white,3)
         return nearest
         
-    def finish(self):
-        cord=self.addNode()
-        if self.distance(cord,self.goalP) < sbt.finishDis:
-            print("başarılı")
-            self.shortestPath()
-            return False
-        return True
     def shortestPath(self):
         index=sbt.Arrays.parents[-1]
         tempC=sbt.Arrays.cordsTree[-1]
@@ -76,3 +69,11 @@ class RrtProces:
             self.drawLine(tempC,cordsTree[index],sbt.Colors.blue)
             tempC=cordsTree[index]
             index=sbt.Arrays.parents[index]
+
+    def finish(self):
+        cord=self.addNode()
+        if self.distance(cord,self.goalP) < sbt.finishDis:
+            print("başarılı")
+            self.shortestPath()
+            return False
+        return True
